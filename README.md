@@ -24,3 +24,7 @@ docker exec -it web curl http://api:5678
 here we require .conf file because we need add a api which cannot be done by 
 standard configuration and in docker file we placed are configuratin file where nginx 
 checks for any configurational changes 
+
+## images
+<img width="1918" height="1078" alt="docker_2" src="https://github.com/user-attachments/assets/33ec8771-0075-48f2-8c28-ce9583af9046" />
+
