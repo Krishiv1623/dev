@@ -1,17 +1,26 @@
-# Assignment 1 – Dockerized Static Website
+# Assignment 2 – Container Communication
 
-## Files
-- index.html: Static webpage
-- Dockerfile: Builds the Nginx-based image
+## Containers
+- Web container: Nginx static site
+- API container: hashicorp/http-echo
+
+## Network
+Custom Docker network: webnet
 
 ## Commands Used
-docker build -t krishiv-site .
-docker run -d --name mysite -p 7070:80 krishiv-site
-curl http://localhost:7070
-docker stop mysite
-docker rm mysite
+docker network create webnet
 
-## explanation
-made a basic html file with heading <!DOCTYPE html> which tells nginx the file is in html 5 code
- in docker file first wrote 'from' which provides the base image, then we copy index.html file with the 
-  file location of the default file location in nginx
+docker run -d --name api --network webnet \
+hashicorp/http-echo -text="Hello from API"
+
+docker build -t web-app .
+
+docker run -d --name web --network webnet \
+-p 8080:80 web-app
+
+docker exec -it web curl http://api:5678
+
+## Explanation
+here we require .conf file because we need add a api which cannot be done by 
+standard configuration and in docker file we placed are configuratin file where nginx 
+checks for any configurational changes 
